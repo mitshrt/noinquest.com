@@ -1,19 +1,16 @@
-<<<<<<< HEAD:アンケート
-```javascript
-=======
 <!DOCTYPE html>
-<html lang="ja">
+ <html lang="ja"> 
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アンケート</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>農業インターン事前アンケート</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  :root {
+  :root{
     --bg: #0e0e0f;
     --surface: #181819;
     --border: #000000;
-    --accent: #9ac03d;
+    --accent: #c8f94d;
     --accent-dim: #8aaa30;
     --text: #ffffff;
     --muted: #6b6b72;
@@ -21,18 +18,20 @@
     --success: #60f0a8;
     --card-bg: #141415;
   }
+   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-
-body {
-  font-family: 'Noto Serif JP', serif;
-  background: var(--bg);
-  background-image: url('IMG_8544.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  body {
+ /* -- ページ本体のデザイン -- */
+ /*-- ①フォント --*/
+    font-family: 'Noto Serif JP', sans-serif;
+ /*-- ②背景画像設定 --*/
+    background-image: url('IMG_8544.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+ /*-- ③テキスト色 --*/
     color: var(--text);
+ /*-- ④スマホ崩れ防止 --*/
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -40,8 +39,9 @@ body {
     padding: 2rem 1rem;
     position: relative;
     overflow-x: hidden;
-  }
+ }
 
+ /* ── 背景のおしゃれさ ── */
   body::before {
     content: '';
     position: fixed;
@@ -50,9 +50,8 @@ body {
       radial-gradient(ellipse 60% 40% at 80% 20%, rgba(200,240,96,.06) 0%, transparent 70%),
       radial-gradient(ellipse 40% 60% at 10% 80%, rgba(96,240,168,.04) 0%, transparent 70%);
     pointer-events: none;
-  }
+ }
 
-  /* ── GRID BACKGROUND ── */
   body::after {
     content: '';
     position: fixed;
@@ -62,21 +61,20 @@ body {
       linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 3px);
     background-size: 48px 48px;
     pointer-events: none;
-  }
+ }
 
+ /* ── clss 設定 ── */
   .wrapper {
     width: 100%;
     max-width: 640px;
     position: relative;
     z-index: 1;
-  }
-
-  /* ── HEADER ── */
+ }
   .header {
     margin-bottom: 2.5rem;
     border-left: 3px solid var(--accent);
     padding-left: 1.2rem;
-  }
+ }
   .header-label {
     font-family: 'DM Mono', monospace;
     font-size: .72rem;
@@ -84,15 +82,15 @@ body {
     letter-spacing: .2em;
     text-transform: uppercase;
     margin-bottom: .5rem;
-  }
+ }
   .header h1 {
     font-size: 1.7rem;
     font-weight: 600;
     letter-spacing: .04em;
     line-height: 1.3;
-  }
+ }
 
-  /* ── PROGRESS ── */
+ /* ── PROGRESS ── */
   .progress-row {
     display: flex;
     align-items: center;
@@ -115,7 +113,7 @@ body {
   .progress-label {
     font-family: 'DM Mono', monospace;
     font-size: .75rem;
-    color: #ffffff;
+    color: var(--muted);
     white-space: nowrap;
   }
 
@@ -143,20 +141,7 @@ body {
     color: (--success);
     letter-spacing: .15em;
   }
-  .q-timer {
-    font-family: 'DM Mono', monospace;
-    font-size: .75rem;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-  }
-  .timer-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 1.2s ease-in-out infinite;
-  }
+
   @keyframes pulse {
     0%,100% { opacity: 1; transform: scale(1); }
     50% { opacity: .4; transform: scale(.7); }
@@ -219,7 +204,6 @@ body {
     color: rgb(0, 0, 0);
 
   }
-
   /* Textarea */
   textarea {
     width: 100%;
@@ -246,7 +230,7 @@ body {
   backdrop-filter: blur(50px);
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.1);
-}
+  }
   .range-labels { display: flex; justify-content: space-between; margin-top: .6rem; }
   .range-labels span { font-family: 'DM Mono', monospace; font-size: .7rem; color: #ffffff; }
   input[type=range] {
@@ -300,7 +284,7 @@ body {
     color: rgb(0, 0, 0);
     background: rgb(255, 255, 255);
     cursor: pointer;
-}
+  }
   .btn:active { transform: scale(.97); }
   .btn-primary {
     background: var(--accent);
@@ -361,19 +345,7 @@ body {
   .result-table tr:last-child td { border-bottom: none; }
   .result-table .q-col { color: var(--muted); font-family: 'DM Mono', monospace; font-size: .72rem; }
   .result-table .ans { color: var(--text); }
-  .result-table .time-col { font-family: 'DM Mono', monospace; color: var(--accent-dim); white-space: nowrap; }
 
-  .dropoff-notice {
-    background: rgba(255,94,94,.08);
-    border: 1px solid rgba(255,94,94,.2);
-    border-radius: 10px;
-    padding: 1rem 1.2rem;
-    margin-bottom: 1.4rem;
-    font-size: .88rem;
-    line-height: 1.6;
-    color: #ff9090;
-  }
-  .dropoff-notice strong { color: var(--danger); }
 
   .restart-btn {
     display: inline-flex;
@@ -405,26 +377,9 @@ body {
     animation: fadeUp .3s cubic-bezier(.4,0,.2,1) both;
   }
 
-  /* ── DATA EXPORT BUTTON ── */
-  .export-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: .75rem;
-    letter-spacing: .06em;
-    padding: .55rem 1.1rem;
-    border-radius: 8px;
-    border: 1px solid var(--accent-dim);
-    background: transparent;
-    color: var(--accent);
-    cursor: pointer;
-    transition: background .18s;
-    margin-left: auto;
-    display: block;
-    margin-top: .6rem;
-  }
-  .export-btn:hover { background: rgba(200,240,96,.08); }
+
 </style>
 </head>
-
 
 <body>
 <div class="wrapper">
@@ -526,265 +481,371 @@ const QUESTIONS = [
   }
 ];
 
->>>>>>> 4faebea567ff42d5a6dc8ab8a70a7f5ec31232a5:index.html
 // ─── STATE ───────────────────────────────────────────────────────────────────
 let currentIndex = 0;
-let answers = {};
-let timings  = {};
-let statuses = {};
+let answers = {};          // { questionId: value }
+let timings  = {};         // { questionId: seconds }
+let statuses = {};         // { questionId: 'answered' | 'skipped' | 'pending' }
 let timerInterval = null;
 let questionStartTime = null;
 let submitted = false;
 
-// ★追加
-let dropoffSaved = false;
-
-
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 window.onload = () => {
-
-  QUESTIONS.forEach(q => {
-    statuses[q.id] = 'pending';
-    timings[q.id] = 0;
-  });
-
+  QUESTIONS.forEach(q => { statuses[q.id] = 'pending'; timings[q.id] = 0; });
   renderQuestion();
 
-  // ── 離脱検知 ─────────────────────────────
-
-  // PCブラウザ向け
-  window.addEventListener('beforeunload', () => {
+  // Detect tab close / navigate away (drop-off)
+ window.addEventListener('beforeunload', e => {
+  if (!submitted) {
     saveDropoffData();
-  });
-
-  // スマホ・タブ切替向け
-  document.addEventListener('visibilitychange', () => {
-
-    if (document.visibilityState === 'hidden') {
-      saveDropoffData();
-    }
-
-  });
-
+    // ※ e.returnValue は離脱確認ダイアログを出したい場合のみ残す
+  }
+});
 };
-
 
 // ─── TIMER ────────────────────────────────────────────────────────────────────
 function startTimer(qId) {
-
   clearInterval(timerInterval);
-
   questionStartTime = Date.now();
-
   timerInterval = setInterval(() => {
-
-    const elapsed =
-      Math.floor((Date.now() - questionStartTime) / 1000);
-
-    document.getElementById('timerDisplay').textContent =
-      formatSeconds(elapsed);
-
+    const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+    timings[qId] = (timings[qId] || 0) + 0; // will commit on leave
+    document.getElementById('timerDisplay').textContent = formatSeconds(elapsed);
   }, 1000);
-
 }
-
 
 function stopTimer(qId) {
-
   clearInterval(timerInterval);
-
   if (questionStartTime) {
-
-    const elapsed =
-      Math.floor((Date.now() - questionStartTime) / 1000);
-
-    timings[qId] =
-      (timings[qId] || 0) + elapsed;
-
+    const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+    timings[qId] = (timings[qId] || 0) + elapsed;
     questionStartTime = null;
-
   }
-
 }
-
 
 function formatSeconds(s) {
-
-  const m = Math.floor(s / 60)
-    .toString()
-    .padStart(2, '0');
-
-  const sec = (s % 60)
-    .toString()
-    .padStart(2, '0');
-
+  const m = Math.floor(s / 60).toString().padStart(2, '0');
+  const sec = (s % 60).toString().padStart(2, '0');
   return `${m}:${sec}`;
-
 }
 
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderQuestion() {
+  const q = QUESTIONS[currentIndex];
+  document.getElementById('questionCard').style.display = 'block';
+  document.getElementById('resultPanel').classList.remove('show');
+
+  document.getElementById('qNum').textContent = `QUESTION ${String(q.id).padStart(2,'0')}`;
+  document.getElementById('qText').textContent = q.text;
+
+  const body = document.getElementById('qBody');
+  body.innerHTML = '';
+  body.className = '';
+
+  if (q.type === 'radio') {
+    const wrap = document.createElement('div');
+    wrap.className = 'options';
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'option' + (answers[q.id] === opt ? ' selected' : '');
+      div.innerHTML = `
+        <div class="radio-box"><div class="radio-inner"></div></div>
+        <span class="option-text">${opt}</span>`;
+      div.onclick = () => {
+        answers[q.id] = opt;
+        statuses[q.id] = 'answered';
+        wrap.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+        div.classList.add('selected');
+      };
+      wrap.appendChild(div);
+    });
+    body.appendChild(wrap);
+  }
+
+  else if (q.type === 'checkbox') {
+    if (!answers[q.id]) answers[q.id] = [];
+    const wrap = document.createElement('div');
+    wrap.className = 'options';
+    q.options.forEach(opt => {
+      const checked = answers[q.id].includes(opt);
+      const div = document.createElement('div');
+      div.className = 'option' + (checked ? ' selected' : '');
+      div.innerHTML = `
+        <div class="radio-box" style="border-radius:4px"><div class="radio-inner" style="border-radius:2px"></div></div>
+        <span class="option-text">${opt}</span>`;
+      div.onclick = () => {
+        const idx2 = answers[q.id].indexOf(opt);
+        if (idx2 === -1) { answers[q.id].push(opt); div.classList.add('selected'); }
+        else { answers[q.id].splice(idx2, 1); div.classList.remove('selected'); }
+        statuses[q.id] = answers[q.id].length > 0 ? 'answered' : 'pending';
+      };
+      wrap.appendChild(div);
+    });
+    body.appendChild(wrap);
+  }
+
+  else if (q.type === 'range') {
+    const val = answers[q.id] ?? q.initial;
+    const wrap = document.createElement('div');
+    wrap.className = 'range-wrap';
+    wrap.innerHTML = `
+      <input type="range" min="${q.min}" max="${q.max}" step="${q.step}" value="${val}" id="rangeInput">
+      <div class="range-labels"><span>${q.labelMin}</span><span>${q.labelMax}</span></div>
+      <div class="range-value" id="rangeVal">${val}</div>`;
+    body.appendChild(wrap);
+    const inp = wrap.querySelector('#rangeInput');
+    inp.oninput = () => {
+      answers[q.id] = Number(inp.value);
+      statuses[q.id] = 'answered';
+      wrap.querySelector('#rangeVal').textContent = inp.value;
+    };
+    answers[q.id] = Number(val);
+    statuses[q.id] = 'answered';
+  }
+
+  else if (q.type === 'text') {
+    const ta = document.createElement('textarea');
+    ta.placeholder = q.placeholder || '';
+    ta.value = answers[q.id] || '';
+    ta.oninput = () => {
+      answers[q.id] = ta.value.trim();
+      statuses[q.id] = ta.value.trim() ? 'answered' : 'pending';
+    };
+    body.appendChild(ta);
+  }
+
+  // Nav buttons
+  document.getElementById('backBtn').disabled = currentIndex === 0;
+  const isLast = currentIndex === QUESTIONS.length - 1;
+  document.getElementById('nextBtn').textContent = isLast ? '送信 ✓' : '次へ →';
+  document.getElementById('skipBtn').style.display = q.required ? 'none' : 'inline';
+
+  // Timer
+  document.getElementById('timerDisplay').textContent = formatSeconds(timings[q.id] || 0);
+  startTimer(q.id);
+
+  // Slide animation
+  document.getElementById('questionCard').classList.remove('slide-in');
+  void document.getElementById('questionCard').offsetWidth;
+  document.getElementById('questionCard').classList.add('slide-in');
+
+  // Progress
+  const answered = QUESTIONS.filter(q2 => statuses[q2.id] === 'answered').length;
+  const pct = (currentIndex / QUESTIONS.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${currentIndex} / ${QUESTIONS.length}`;
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function goNext() {
+  const q = QUESTIONS[currentIndex];
+  stopTimer(q.id);
+
+  const isLast = currentIndex === QUESTIONS.length - 1;
+
+  if (q.required && statuses[q.id] !== 'answered') {
+    shake();
+    return;
+  }
+  if (statuses[q.id] === 'pending') statuses[q.id] = 'skipped';
+
+  if (isLast) { submitSurvey(); return; }
+
+  currentIndex++;
+  renderQuestion();
+}
+
+function goBack() {
+  const q = QUESTIONS[currentIndex];
+  stopTimer(q.id);
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+}
+
+function skipQuestion() {
+  const q = QUESTIONS[currentIndex];
+  stopTimer(q.id);
+  statuses[q.id] = 'skipped';
+  if (currentIndex < QUESTIONS.length - 1) { currentIndex++; renderQuestion(); }
+  else { submitSurvey(); }
+}
+
+function shake() {
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none';
+  card.style.borderColor = 'rgba(255,94,94,.5)';
+  card.style.transform = 'translateX(-6px)';
+  setTimeout(() => { card.style.transform = 'translateX(6px)'; }, 80);
+  setTimeout(() => { card.style.transform = 'translateX(-4px)'; }, 160);
+  setTimeout(() => { card.style.transform = 'translateX(0)'; card.style.borderColor = ''; }, 240);
+}
 
 // ─── GOOGLE APPS SCRIPT URL ───────────────────────────────────────────────────
-const GAS_URL =
-'https://script.google.com/macros/s/AKfycbxjL0hIoZo3LMEpim1T6AMeLgsUb7R7r_Qj5Eqi-L4YgBvaq1JVEDgpsyqQgT5oHyXy/exec';
-
+// ★ デプロイしたウェブアプリのURLをここに貼り付けてください
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxjL0hIoZo3LMEpim1T6AMeLgsUb7R7r_Qj5Eqi-L4YgBvaq1JVEDgpsyqQgT5oHyXy/exec';
 
 // ─── SUBMIT ───────────────────────────────────────────────────────────────────
 function submitSurvey() {
-
   submitted = true;
-
-  // ★追加（重複送信防止）
-  dropoffSaved = true;
-
   clearInterval(timerInterval);
-
-  // 最後の設問時間を確定
-  const q = QUESTIONS[currentIndex];
-
-  if (questionStartTime) {
-
-    const elapsed =
-      Math.floor((Date.now() - questionStartTime) / 1000);
-
-    timings[q.id] =
-      (timings[q.id] || 0) + elapsed;
-
-  }
 
   const data = buildResultData();
 
   // 送信中UI
   const btn = document.getElementById('nextBtn');
-
   btn.textContent = '送信中…';
   btn.disabled = true;
 
   fetch(GAS_URL, {
-
     method: 'POST',
-
-    mode: 'no-cors',
-
-    headers: {
-      'Content-Type': 'application/json'
-    },
-
+    mode: 'no-cors', // GASはno-corsで送る
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-
   })
-
   .then(() => {
-
     showResult(true, getLastAnsweredIndex());
-
   })
-
   .catch(() => {
-
+    // 通信エラー時もローカル結果は表示し、エラーを通知
     showResult(true, getLastAnsweredIndex());
-
     setTimeout(() => {
-
-      alert(
-        '⚠ スプレッドシートへの送信に失敗しました。\nJSONエクスポートでデータを保存してください。'
-      );
-
+      alert('⚠ スプレッドシートへの送信に失敗しました。\nJSONエクスポートでデータを保存してください。');
     }, 300);
-
   });
-
 }
 
-
-// ─── DROPOFF SAVE ─────────────────────────────────────────────────────────────
 function saveDropoffData() {
-
-  // 重複防止
-  if (submitted || dropoffSaved) return;
-
-  dropoffSaved = true;
-
   const q = QUESTIONS[currentIndex];
 
-  // ── 現在設問の時間を保存 ──
   if (questionStartTime) {
-
-    const elapsed =
-      Math.floor((Date.now() - questionStartTime) / 1000);
-
-    timings[q.id] =
-      (timings[q.id] || 0) + elapsed;
-
+    const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+    timings[q.id] = (timings[q.id] || 0) + elapsed;
   }
 
   const data = buildResultData();
 
-  // ── Beacon送信 ──
   navigator.sendBeacon(
-
     GAS_URL,
-
-    new Blob(
-      [JSON.stringify(data)],
-      {
-        type: 'application/json'
-      }
-    )
-
+    new Blob([JSON.stringify(data)], {
+      type: 'application/json'
+    })
   );
-
 }
 
-
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
 function getLastAnsweredIndex() {
-
   let last = -1;
-
   QUESTIONS.forEach((q, i) => {
-
-    if (
-      statuses[q.id] === 'answered' ||
-      statuses[q.id] === 'skipped'
-    ) {
-      last = i;
-    }
-
+    if (statuses[q.id] === 'answered' || statuses[q.id] === 'skipped') last = i;
   });
-
   return last;
-
 }
-
 
 function buildResultData() {
-
   return {
-
-    submittedAt: new Date().toLocaleString(
-      'ja-JP',
-      { timeZone: 'Asia/Tokyo' }
-    ),
-
+submittedAt: new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }),
     submitted,
-
     lastReachedQuestion: currentIndex + 1,
-
     questions: QUESTIONS.map(q => ({
-
       id: q.id,
-
       text: q.text,
-
       answer: answers[q.id] ?? null,
-
       timeSpentSeconds: timings[q.id] || 0,
-
       status: statuses[q.id]
-
     }))
-
   };
-
 }
-```
+
+function showResult(isComplete, lastIdx) {
+  document.getElementById('questionCard').style.display = 'none';
+  const panel = document.getElementById('resultPanel');
+  panel.classList.add('show');
+
+  const answeredCount = QUESTIONS.filter(q => statuses[q.id] === 'answered').length;
+  const totalTime = Object.values(timings).reduce((a, b) => a + b, 0);
+
+  if (isComplete) {
+    document.getElementById('resultStatus').textContent = '✓ SUBMITTED';
+    document.getElementById('resultStatus').style.color = 'var(--success)';
+    document.getElementById('resultHeading').textContent =
+      `ご回答ありがとうございました（${answeredCount}/${QUESTIONS.length}問 · 合計 ${formatSeconds(totalTime)}）`;
+    document.getElementById('dropoffNotice').innerHTML = '';
+  } else {
+    document.getElementById('resultStatus').textContent = '⚠ INCOMPLETE';
+    document.getElementById('resultStatus').style.color = 'var(--danger)';
+    document.getElementById('resultHeading').textContent = 'アンケートが未送信のまま終了されました';
+    const reached = currentIndex + 1;
+    document.getElementById('dropoffNotice').innerHTML = `
+      <div class="dropoff-notice">
+        <strong>離脱検知：</strong> 第 <strong>${reached} 問</strong> まで進んでいましたが、アンケートは送信されませんでした。<br>
+        回答済み：${answeredCount} 問 ／ スキップ：${QUESTIONS.filter(q=>statuses[q.id]==='skipped').length} 問 ／ 未回答：${QUESTIONS.filter(q=>statuses[q.id]==='pending').length} 問<br>
+        合計滞在時間：${formatSeconds(totalTime)}
+      </div>`;
+  }
+
+  const tbody = document.getElementById('resultBody');
+  tbody.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const tr = document.createElement('tr');
+    const answerVal = answers[q.id];
+    let answerStr = '—';
+    if (Array.isArray(answerVal)) answerStr = answerVal.join('、') || '—';
+    else if (answerVal !== undefined && answerVal !== null && answerVal !== '') answerStr = String(answerVal);
+
+    const statusMap = { answered: '✓ 回答済', skipped: '− スキップ', pending: '✗ 未回答' };
+    const statusColor = { answered: 'var(--success)', skipped: 'var(--muted)', pending: 'var(--danger)' };
+    const st = statuses[q.id] || 'pending';
+
+    tr.innerHTML = `
+      <td class="q-col">Q${q.id}</td>
+      <td class="ans">${answerStr}</td>
+      <td style="color:${statusColor[st]};font-size:.78rem;font-family:'DM Mono',monospace">${statusMap[st]}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  // update progress to 100%
+  if (isComplete) {
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('progressLabel').textContent = `${QUESTIONS.length} / ${QUESTIONS.length}`;
+  }
+}
+
+function exportJSON() {
+  const data = buildResultData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `survey_${Date.now()}.json`;
+  a.click();
+}
+
+function editAnswers() {
+  submitted = false;
+  currentIndex = 0;
+  clearInterval(timerInterval);
+  document.getElementById('nextBtn').disabled = false;  // ← これを追加
+  document.getElementById('nextBtn').textContent = '次へ →'; // ← これも追加
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionCard').style.display = 'block';
+  renderQuestion();
+}
+
+
+function restart() {
+  currentIndex = 0;
+  answers = {}; timings = {}; statuses = {}; submitted = false;
+  clearInterval(timerInterval);
+  QUESTIONS.forEach(q => { statuses[q.id] = 'pending'; timings[q.id] = 0; });
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('questionCard').style.display = 'block';
+  renderQuestion();
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+</body>
