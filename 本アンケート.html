@@ -494,33 +494,36 @@ let submitted = false;
 window.onload = () => {
   QUESTIONS.forEach(q => { statuses[q.id] = 'pending'; timings[q.id] = 0; });
   renderQuestion();
+};
 
-  // Detect tab close / navigate away (drop-off)
- window.addEventListener('beforeunload', e => {
+window.addEventListener('beforeunload', e => {
   if (!submitted) {
     saveDropoffData();
-    // ※ e.returnValue は離脱確認ダイアログを出したい場合のみ残す
   }
 });
-};
+
 
 // ─── TIMER ────────────────────────────────────────────────────────────────────
 function startTimer(qId) {
   clearInterval(timerInterval);
   questionStartTime = Date.now();
   timerInterval = setInterval(() => {
-    // 表示はしないが内部で時間を計測し続ける
+    const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+    timings[qId] = (timings[qId] || 0); // 内部で保持するだけ
   }, 1000);
 }
+
 
 
 function stopTimer(qId) {
   clearInterval(timerInterval);
   if (questionStartTime) {
     const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+    timings[qId] = (timings[qId] || 0) + elapsed; // ← ここで加算
     questionStartTime = null;
   }
 }
+
 
 function formatSeconds(s) {
   const m = Math.floor(s / 60).toString().padStart(2, '0');
@@ -713,21 +716,28 @@ function submitSurvey() {
 
 function saveDropoffData() {
   const q = QUESTIONS[currentIndex];
-
   if (questionStartTime) {
     const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
     timings[q.id] = (timings[q.id] || 0) + elapsed;
   }
-
   const data = buildResultData();
+  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
 
-  navigator.sendBeacon(
-    GAS_URL,
-    new Blob([JSON.stringify(data)], {
-      type: 'application/json'
-    })
-  );
+  // まずsendBeaconを試みる
+  const beaconSent = navigator.sendBeacon(GAS_URL, blob);
+
+  // sendBeaconが失敗したらfetchで送る
+  if (!beaconSent) {
+    fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      keepalive: true  
+    }).catch(() => {});
+  }
 }
+
 
 function getLastAnsweredIndex() {
   let last = -1;
@@ -764,7 +774,7 @@ function showResult(isComplete, lastIdx) {
     document.getElementById('resultStatus').textContent = '✓ SUBMITTED';
     document.getElementById('resultStatus').style.color = 'var(--success)';
     document.getElementById('resultHeading').textContent =
-      `ご回答ありがとうございました（${answeredCount}/${QUESTIONS.length}問 · 合計 ${formatSeconds(totalTime)}）`;
+      `ご回答ありがとうございました！`;
     document.getElementById('dropoffNotice').innerHTML = '';
   } else {
     document.getElementById('resultStatus').textContent = '⚠ INCOMPLETE';
@@ -774,7 +784,7 @@ function showResult(isComplete, lastIdx) {
     document.getElementById('dropoffNotice').innerHTML = `
       <div class="dropoff-notice">
         <strong>離脱検知：</strong> 第 <strong>${reached} 問</strong> まで進んでいましたが、アンケートは送信されませんでした。<br>
-        回答済み：${answeredCount} 問 ／ スキップ：${QUESTIONS.filter(q=>statuses[q.id]==='skipped').length} 問 ／ 未回答：${QUESTIONS.filter(q=>statuses[q.id]==='pending').length} 問<br>
+        回答済み：${answeredCount} 問  / スキップ：${QUESTIONS.filter(q=>statuses[q.id]==='skipped').length} 問  / 未回答：${QUESTIONS.filter(q=>statuses[q.id]==='pending').length} 問<br>
         合計滞在時間：${formatSeconds(totalTime)}
       </div>`;
   }
@@ -788,7 +798,7 @@ function showResult(isComplete, lastIdx) {
     if (Array.isArray(answerVal)) answerStr = answerVal.join('、') || '—';
     else if (answerVal !== undefined && answerVal !== null && answerVal !== '') answerStr = String(answerVal);
 
-    const statusMap = { answered: '✓ 回答済', skipped: '− スキップ', pending: '✗ 未回答' };
+    const statusMap = { answered: '✓ 回答済', skipped: '- スキップ', pending: '✗ 未回答' };
     const statusColor = { answered: 'var(--success)', skipped: 'var(--muted)', pending: 'var(--danger)' };
     const st = statuses[q.id] || 'pending';
 
